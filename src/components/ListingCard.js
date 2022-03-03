@@ -1,6 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 
-function ListingCard({description, image, location}) {
+function ListingCard({description, image, location, id, onDelete}) {
+  const [favClick, setFavClick] = useState(false)
+
+  function deleteListing() {
+    console.log(id)
+    fetch(`http://localhost:6001/listings/${id}`, {method: 'DELETE' })
+    onDelete(id)
+  }
+
   return (
     <li className="card">
       <div className="image">
@@ -8,14 +16,20 @@ function ListingCard({description, image, location}) {
         <img src={image} alt={"description"} />
       </div>
       <div className="details">
-        {true ? (
-          <button className="emoji-button favorite active">★</button>
+        {favClick ? (
+          <button 
+            onClick={() => setFavClick(false)}
+            className="emoji-button favorite active"
+          >★</button>
         ) : (
-          <button className="emoji-button favorite">☆</button>
+          <button 
+            onClick={() => setFavClick(true)}
+            className="emoji-button favorite"
+          >☆</button>
         )}
         <strong>{description}</strong>
         <span> · {location}</span>
-        <button className="emoji-button delete">🗑</button>
+        <button onClick={deleteListing} className="emoji-button delete">🗑</button>
       </div>
     </li>
   );
