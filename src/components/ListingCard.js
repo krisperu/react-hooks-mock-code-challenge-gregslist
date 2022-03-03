@@ -13,7 +13,7 @@ function ListingCard({description, image, location, id, onDelete}) {
     <li className="card">
       <div className="image">
         <span className="price">$0</span>
-        <img src={image} alt={"description"} />
+        <img src={image} alt={description} />
       </div>
       <div className="details">
         {favClick ? (
